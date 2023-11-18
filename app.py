@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 
 # 제목
 st.subheader('사조별 영국 시 양상 분석 연구 결과')
