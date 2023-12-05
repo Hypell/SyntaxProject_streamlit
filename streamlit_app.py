@@ -34,7 +34,7 @@ def get_text(A):
 
     file_path = A + book_num2 + '.txt'
 
-    f = open(file_path, encoding='UTF8')
+    f = A + book_num2 + '.txt'
     lines = f.readlines()
 
     for line in lines:
