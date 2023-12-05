@@ -1,7 +1,8 @@
 pathlib
 Path
 re
-gzip, json
+gzip
+json
 textblob
 TextBlob
 pandas
