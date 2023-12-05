@@ -1,5 +1,4 @@
 Path
-json
 TextBlob
 pandas
 pronouncing
