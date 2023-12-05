@@ -30,7 +30,7 @@ all_text = []
 def get_text(A):
     all_lines = []
 
-    file_path = Path(A + '/' + book_num2 + '.txt')
+    file_path = Path(A + '\' + book_num2 + '.txt')
     file_path_2 = os.path.join(cwd, file_path)
 
     f = open(file_path_2, encoding='UTF8')
@@ -52,7 +52,7 @@ def get_text(A):
 def get_corpus(B):
     all_lines = []
 
-    file_path = Path(B + '/gutenberg-poetry-v001.ndjson.gz')
+    file_path = Path(B + '\gutenberg-poetry-v001.ndjson.gz')
     file_path_2 = os.path.join(cwd, file_path)
 
     for line in gzip.open(file_path_2):
