@@ -3,4 +3,3 @@ TextBlob
 pandas
 pronouncing
 nltk
-os
