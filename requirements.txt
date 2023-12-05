@@ -1,10 +1,9 @@
-pathlib
 Path
 re
 gzip
 json
-textblob
 TextBlob
 pandas
 pronouncing
 nltk
+
