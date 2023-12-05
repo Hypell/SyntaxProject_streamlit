@@ -1,5 +1,4 @@
 Path
-re
 gzip
 json
 TextBlob
