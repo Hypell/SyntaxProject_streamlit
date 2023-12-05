@@ -16,7 +16,8 @@ st.header("영시 분석 결과 보기")
 
 st.write('download corpus: http://static.decontextualize.com/gutenberg-poetry-v001.ndjson.gz')
 path = st.text_input('input file path of the folder where you saved the corpus and text files, and press enter')
-cwd = os.getcwd()
+
+path = os.getcwd()
 
 
 col1, col2 = st.columns(2)
@@ -28,10 +29,9 @@ all_text = []
 def get_text(A):
     all_lines = []
 
-    file_path = Path(A + '/' + book_num2 + '.txt')
-    file_path_2 = os.path.join(cwd, file_path)
+    file_path = path + book_num2 + '.txt'
 
-    f = open(file_path_2, encoding='UTF8')
+    f = open(file_path, encoding='UTF8')
     lines = f.readlines()
 
     for line in lines:
@@ -51,9 +51,9 @@ def get_corpus(B):
     all_lines = []
 
     file_path = Path(B + '/gutenberg-poetry-v001.ndjson.gz')
-    file_path_2 = os.path.join(cwd, file_path)
 
-    for line in gzip.open(file_path_2):
+
+    for line in gzip.open(file_path):
         all_lines.append(json.loads(line.strip()))
         
     a = len(all_lines)
