@@ -15,9 +15,12 @@ import streamlit as st
 st.header("영시 분석 결과 보기")
 
 st.write('download corpus: http://static.decontextualize.com/gutenberg-poetry-v001.ndjson.gz')
-path = st.text_input('input file path of the folder where you saved the corpus and text files, and press enter')
 
-path = os.getcwd()
+uploaded_file = st.file_uploader("Choose a file", accept_multiple_files=True)
+
+if uploaded_file is not None:
+    path = os.path.dirname(__file__)
+    st.write(path)
 
 
 col1, col2 = st.columns(2)
@@ -29,7 +32,7 @@ all_text = []
 def get_text(A):
     all_lines = []
 
-    file_path = path + book_num2 + '.txt'
+    file_path = A + book_num2 + '.txt'
 
     f = open(file_path, encoding='UTF8')
     lines = f.readlines()
