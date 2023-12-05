@@ -32,7 +32,7 @@ all_text = []
 def get_text(A):
     all_lines = []
 
-    file_path = A + book_num2 + '.txt'
+    file_path = A + '/' + book_num2 + '.txt'
 
     f = A + book_num2 + '.txt'
     lines = f.readlines()
