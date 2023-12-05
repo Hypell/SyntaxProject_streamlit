@@ -18,6 +18,8 @@ st.write('download corpus: http://static.decontextualize.com/gutenberg-poetry-v0
 path = st.text_input('input file path of the folder where you saved the corpus and text files, and press enter')
 cwd = os.getcwd()
 
+st.write(cwd)
+
 
 col1, col2 = st.columns(2)
 
