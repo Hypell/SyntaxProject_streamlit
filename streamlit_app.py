@@ -18,8 +18,6 @@ st.write('download corpus: http://static.decontextualize.com/gutenberg-poetry-v0
 path = st.text_input('input file path of the folder where you saved the corpus and text files, and press enter')
 cwd = os.getcwd()
 
-st.write(cwd)
-
 
 col1, col2 = st.columns(2)
 
@@ -30,7 +28,7 @@ all_text = []
 def get_text(A):
     all_lines = []
 
-    file_path = Path(A + '\\' + book_num2 + '.txt')
+    file_path = Path(A + '/' + book_num2 + '.txt')
     file_path_2 = os.path.join(cwd, file_path)
 
     f = open(file_path_2, encoding='UTF8')
@@ -52,7 +50,7 @@ def get_text(A):
 def get_corpus(B):
     all_lines = []
 
-    file_path = Path(B + '\\gutenberg-poetry-v001.ndjson.gz')
+    file_path = Path(B + '/gutenberg-poetry-v001.ndjson.gz')
     file_path_2 = os.path.join(cwd, file_path)
 
     for line in gzip.open(file_path_2):
