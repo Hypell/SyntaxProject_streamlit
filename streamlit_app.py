@@ -5,6 +5,8 @@ from textblob import TextBlob
 import pandas as pd
 import pronouncing
 import nltk
+import os
+
 
 #-------------------------------------------------------------------------------------
 
@@ -14,6 +16,7 @@ st.header("영시 분석 결과 보기")
 
 st.write('download corpus: http://static.decontextualize.com/gutenberg-poetry-v001.ndjson.gz')
 path = st.text_input('input file path of the folder where you saved the corpus and text files, and press enter')
+cwd = os.getcwd()
 
 
 col1, col2 = st.columns(2)
@@ -26,8 +29,9 @@ def get_text(A):
     all_lines = []
 
     file_path = Path(A + '/' + book_num2 + '.txt')
+    file_path_2 = os.path.join(cwd, file_path)
 
-    f = open(file_path, encoding='UTF8')
+    f = open(file_path_2, encoding='UTF8')
     lines = f.readlines()
 
     for line in lines:
@@ -46,7 +50,10 @@ def get_text(A):
 def get_corpus(B):
     all_lines = []
 
-    for line in gzip.open(Path(B + '/gutenberg-poetry-v001.ndjson.gz')):
+    file_path = Path(B + '/gutenberg-poetry-v001.ndjson.gz')
+    file_path_2 = os.path.join(cwd, file_path)
+
+    for line in gzip.open(file_path_2):
         all_lines.append(json.loads(line.strip()))
         
     a = len(all_lines)
