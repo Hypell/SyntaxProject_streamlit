@@ -16,16 +16,21 @@ st.header("영시 분석 결과 보기")
 
 st.write('download corpus: http://static.decontextualize.com/gutenberg-poetry-v001.ndjson.gz')
 
-uploaded_file = st.file_uploader("Choose a file", accept_multiple_files=True)
+uploaded_file = st.file_uploader("Upload text files", accept_multiple_files=True)
 uploaded_file_2 = st.file_uploader("Upload corpus")
-
-col1, col2 = st.columns(2)
-
-all_text = []
 
 #--------------------------------------------------------------------------------------
 
-def get_text():
+st.markdown("get from corpus")
+book_num = st.text_input("input book numbers divided by ':' and press get button", key = '1')
+book_nums = book_num.split(':')
+
+#--------------------------------------------------------------------------------------
+
+all_text = []
+
+
+def get():
     if uploaded_file is not None:
         for i in range(0, len(uploaded_file)):
             stringio = StringIO(uploaded_file[i].getvalue().decode("utf-8"))
@@ -33,28 +38,21 @@ def get_text():
             trimmed_poems =  re.sub("[\n0-9]", "", string_data)
             text = trimmed_poems.split(',')
             all_text.extend([text])
-    return all_text
 
-#--------------------------------------------------------------------------------------
-
-def get_corpus():
-
-    all_lines = []
-
-    if uploaded_file is not None:
+        all_lines = []
         for line in gzip.open(uploaded_file_2):
             all_lines.append(json.loads(line.strip()))
-
         a = len(all_lines)
         text = []
         for i in range(0,a):
             each_line =  all_lines[i]
             dict_items = each_line.items()
-            if list(dict_items)[1] ==  ('gid', book_num):
-                text.append(each_line.get('s'))
-
-        all_text.extend(text)
-
+            
+            for b in range(0, len(book_nums)):
+                if list(dict_items)[1] ==  ('gid', book_nums[b]):
+                    text.append(each_line.get('s'))
+                    all_text.extend(text)
+    
     return all_text
 
 
@@ -146,25 +144,10 @@ def result(C):
             ])
     st.data_editor(df)
 
-
 #--------------------------------------------------------------------------------------
 
+get_from = st.button('get', key = 11)
 
-with col1:
-    st.markdown("get from corpus")
-    book_num = st.text_input('input book number and press get button', key = '1')
-    get_from_corpus = st.button('get', key = 11)
-
-    if get_from_corpus == True:
-        all_text = get_corpus()
-        result(all_text)
-  
-# ----------------------------------------------------------------------------------------------
-
-with col2:
-    st.markdown("get from text file")    
-    get_from_text = st.button('get', key = 12)
-            
-    if get_from_text == True:
-        all_text = get_text()
-        result(all_text)
+if get_from == True:
+    all_text = get()
+    result(all_text)
