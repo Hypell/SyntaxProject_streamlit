@@ -5,7 +5,6 @@ from textblob import TextBlob
 import pandas as pd
 import pronouncing
 import nltk
-nltk.download('all')
 from io import StringIO
 
 #-------------------------------------------------------------------------------------
