@@ -150,3 +150,9 @@ get_from = st.button('see results', key = 11)
 if get_from == True:
     all_text = get()
     result(all_text)
+
+
+reset_button = st.button('reset', key = 12)
+
+if reset_button == True:
+    all_text = []
