@@ -5,6 +5,7 @@ from textblob import TextBlob
 import pandas as pd
 import pronouncing
 import nltk
+nltk.download('all')
 from io import StringIO
 
 #-------------------------------------------------------------------------------------
@@ -20,7 +21,7 @@ uploaded_file_2 = st.file_uploader("Upload corpus")
 
 #--------------------------------------------------------------------------------------
 
-book_num = st.text_input("input book numbers from corpus divided by ':' and press get button", key = '1')
+book_num = st.text_input("input book numbers from corpus divided by ':'", key = '1')
 book_nums = book_num.split(':')
 
 #--------------------------------------------------------------------------------------
@@ -29,7 +30,7 @@ all_text = []
 
 
 def get():
-    if uploaded_file is not None:
+    if uploaded_file is not None or uploaded_file_2 is not None:
         for i in range(0, len(uploaded_file)):
             stringio = StringIO(uploaded_file[i].getvalue().decode("utf-8"))
             string_data = stringio.read()
@@ -45,13 +46,13 @@ def get():
         for i in range(0,a):
             each_line =  all_lines[i]
             dict_items = each_line.items()
-            
+
             for b in range(0, len(book_nums)):
                 if list(dict_items)[1] ==  ('gid', book_nums[b]):
                     text.append(each_line.get('s'))
                     all_text.extend(text)
     
-    return all_text
+        return all_text
 
 
 #--------------------------------------------------------------------------------------
@@ -144,7 +145,7 @@ def result(C):
 
 #--------------------------------------------------------------------------------------
 
-get_from = st.button('get', key = 11)
+get_from = st.button('see results', key = 11)
 
 if get_from == True:
     all_text = get()
