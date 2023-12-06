@@ -50,7 +50,7 @@ def get():
             for b in range(0, len(book_nums)):
                 if list(dict_items)[1] ==  ('gid', book_nums[b]):
                     text.append(each_line.get('s'))
-                    all_text.extend(text)
+        all_text.extend(text)
         return all_text
 
     elif uploaded_file is not None and uploaded_file_2 is None:
@@ -75,7 +75,7 @@ def get():
             for b in range(0, len(book_nums)):
                 if list(dict_items)[1] ==  ('gid', book_nums[b]):
                     text.append(each_line.get('s'))
-                    all_text.extend(text)
+        all_text.extend(text)
         return all_text
     
     else:
