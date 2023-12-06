@@ -20,8 +20,7 @@ uploaded_file_2 = st.file_uploader("Upload corpus")
 
 #--------------------------------------------------------------------------------------
 
-st.markdown("get from corpus")
-book_num = st.text_input("input book numbers divided by ':' and press get button", key = '1')
+book_num = st.text_input("input book numbers from corpus divided by ':' and press get button", key = '1')
 book_nums = book_num.split(':')
 
 #--------------------------------------------------------------------------------------
