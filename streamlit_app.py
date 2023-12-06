@@ -5,8 +5,7 @@ from textblob import TextBlob
 import pandas as pd
 import pronouncing
 import nltk
-import os
-
+from io import StringIO
 
 #-------------------------------------------------------------------------------------
 
@@ -17,11 +16,7 @@ st.header("영시 분석 결과 보기")
 st.write('download corpus: http://static.decontextualize.com/gutenberg-poetry-v001.ndjson.gz')
 
 uploaded_file = st.file_uploader("Choose a file", accept_multiple_files=True)
-
-if uploaded_file is not None:
-    path = os.path.dirname(__file__)
-    st.write(path)
-
+uploaded_file_2 = st.file_uploader("Upload corpus")
 
 col1, col2 = st.columns(2)
 
@@ -29,45 +24,35 @@ all_text = []
 
 #--------------------------------------------------------------------------------------
 
-def get_text(A):
-    all_lines = []
-
-    file_path = A + '/' + book_num2 + '.txt'
-
-    f = A + book_num2 + '.txt'
-    lines = f.readlines()
-
-    for line in lines:
-        all_lines.append(line)
-
-    f.close()
-
-    trimmed_poems =  re.sub("[\n0-9]", "", str(all_lines))
-    text = trimmed_poems.split(',')
-    all_text.extend([text])
-
+def get_text():
+    if uploaded_file is not None:
+        for i in range(0, len(uploaded_file)):
+            stringio = StringIO(uploaded_file[i].getvalue().decode("utf-8"))
+            string_data = stringio.read()
+            trimmed_poems =  re.sub("[\n0-9]", "", string_data)
+            text = trimmed_poems.split(',')
+            all_text.extend([text])
     return all_text
 
 #--------------------------------------------------------------------------------------
 
-def get_corpus(B):
+def get_corpus():
+
     all_lines = []
 
-    file_path = Path(B + '/gutenberg-poetry-v001.ndjson.gz')
+    if uploaded_file is not None:
+        for line in gzip.open(uploaded_file_2):
+            all_lines.append(json.loads(line.strip()))
 
+        a = len(all_lines)
+        text = []
+        for i in range(0,a):
+            each_line =  all_lines[i]
+            dict_items = each_line.items()
+            if list(dict_items)[1] ==  ('gid', book_num):
+                text.append(each_line.get('s'))
 
-    for line in gzip.open(file_path):
-        all_lines.append(json.loads(line.strip()))
-        
-    a = len(all_lines)
-    text = []
-    for i in range(0,a):
-        each_line =  all_lines[i]
-        dict_items = each_line.items()
-        if list(dict_items)[1] ==  ('gid', book_num):
-            text.append(each_line.get('s'))
-
-    all_text.extend(text)
+        all_text.extend(text)
 
     return all_text
 
@@ -170,16 +155,15 @@ with col1:
     get_from_corpus = st.button('get', key = 11)
 
     if get_from_corpus == True:
-        all_text = get_corpus(path)
+        all_text = get_corpus()
         result(all_text)
   
 # ----------------------------------------------------------------------------------------------
 
 with col2:
     st.markdown("get from text file")    
-    book_num2 = st.text_input('input file name and press get button', key ='2')
     get_from_text = st.button('get', key = 12)
             
     if get_from_text == True:
-        all_text = get_text(path)
+        all_text = get_text()
         result(all_text)
