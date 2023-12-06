@@ -30,7 +30,7 @@ all_text = []
 
 
 def get():
-    if uploaded_file or uploaded_file_2 is not None:
+    if uploaded_file is not None and uploaded_file_2 is not None:
         for i in range(0, len(uploaded_file)):
             stringio = StringIO(uploaded_file[i].getvalue().decode("utf-8"))
             string_data = stringio.read()
@@ -51,8 +51,35 @@ def get():
                 if list(dict_items)[1] ==  ('gid', book_nums[b]):
                     text.append(each_line.get('s'))
                     all_text.extend(text)
-    
         return all_text
+
+    elif uploaded_file is not None and uploaded_file_2 is None:
+        for i in range(0, len(uploaded_file)):
+            stringio = StringIO(uploaded_file[i].getvalue().decode("utf-8"))
+            string_data = stringio.read()
+            trimmed_poems =  re.sub("[\n0-9]", "", string_data)
+            text = trimmed_poems.split(',')
+            all_text.extend([text])
+        return all_text
+
+    elif uploaded_file_2 is not None and uploaded_file is None:
+        all_lines = []
+        for line in gzip.open(uploaded_file_2):
+            all_lines.append(json.loads(line.strip()))
+        a = len(all_lines)
+        text = []
+        for i in range(0,a):
+            each_line =  all_lines[i]
+            dict_items = each_line.items()
+
+            for b in range(0, len(book_nums)):
+                if list(dict_items)[1] ==  ('gid', book_nums[b]):
+                    text.append(each_line.get('s'))
+                    all_text.extend(text)
+        return all_text
+    
+    else:
+        st.markdown("no files uploaded")
 
 
 #--------------------------------------------------------------------------------------
