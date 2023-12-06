@@ -30,7 +30,7 @@ all_text = []
 
 
 def get():
-    if uploaded_file is not None or uploaded_file_2 is not None:
+    if uploaded_file or uploaded_file_2 is not None:
         for i in range(0, len(uploaded_file)):
             stringio = StringIO(uploaded_file[i].getvalue().decode("utf-8"))
             string_data = stringio.read()
