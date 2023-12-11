@@ -14,6 +14,8 @@ import streamlit as st
 
 st.header("영시 분석 결과 보기")
 
+st.divider()
+
 text_contents_1 = '''On Hellespont, guilty of true love's blood,
 In view and opposite two cities stood,
 Sea-borderers, disjoin'd by Neptune's might;
